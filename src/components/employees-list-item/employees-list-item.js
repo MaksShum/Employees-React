@@ -1,36 +1,19 @@
-import {Component} from 'react'
+
 import './employees-list-item.css';
 
-class EmployeesListItem extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            increase : props.increase,
-            like : false
-        };
-    }
-        onIncrease = () => {
-            this.setState(({increase}) => ({
-                increase : !increase
-            }))
-        }
-        onLike = () => {
-            this.setState(({like}) => ({
-                like : !like
-            }))
-        }
+const EmployeesListItem = (props) => {
 
-    render() {
-        const {name,salary,onDelete} = this.props
-        const {increase,like} = this.state
+        const {name,salary,onDelete,onToggleProp,like,increase} = props
         let addClass = `list-group-item d-flex justify-content-between ${like ? 'like' : ''} ${increase ? 'increase' : ''}`
     
     return (
         <li className={addClass}>
-            <span onClick={this.onLike} className="list-group-item-label">{name}</span>
+            <span className="list-group-item-label"
+                    data-prop="like"
+                    onClick={onToggleProp}>{name}</span>
             <input type="text" className="list-group-item-input" defaultValue={salary}/>
             <div className='d-flex justify-content-center align-items-center'>
-                <button onClick={this.onIncrease} type="button"
+                <button data-prop="increase" onClick={onToggleProp} type="button"
                     className="btn-cookie btn-sm ">
                     <i className="fas fa-cookie"></i>
                 </button>
@@ -44,7 +27,7 @@ class EmployeesListItem extends Component {
             </div>
         </li>
     )
-    }
 }
+
 
 export default EmployeesListItem;
